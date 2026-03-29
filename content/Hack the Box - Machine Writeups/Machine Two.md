@@ -1,7 +1,8 @@
 ---
 public: "true"
+tags:
+  - Linux
 ---
-Test
-#Linux
+
 
 This is a linux machine
