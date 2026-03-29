@@ -36,7 +36,7 @@ def is_public(filepath: Path) -> bool:
     for line in lines[1:40]:
         if line.strip() == "---":
             break
-        if re.match(r"^public:\s*true\s*$", line):
+        if re.match(r"^public:\s*\"?true\"?\s*$", line):
             return True
 
     return False
