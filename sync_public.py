@@ -25,7 +25,6 @@ DEFAULT_QUARTZ_CONTENT = SCRIPT_DIR / "content"
 
 def is_public(filepath: Path) -> bool:
     """Check if a note has public: true in its frontmatter."""
-    print(f"Checking {filepath}")
     try:
         lines = filepath.read_text(encoding="utf-8").splitlines()
     except (UnicodeDecodeError, OSError):
