@@ -1,13 +1,5 @@
 ---
-title: Test
+title: Notes and Writeups
 ---
 
-Welcome
-
-
-# Section Header
-
-```python
-print("Hello World")
-```
-
+I publish notes and CTF writeups here.
