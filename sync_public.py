@@ -16,6 +16,7 @@ Usage:
 import argparse
 import re
 import shutil
+import subprocess
 from pathlib import Path
 
 SCRIPT_DIR = Path(__file__).resolve().parent
@@ -138,6 +139,24 @@ def main():
     print(f"Dry run: {args.dry_run}\n")
 
     sync(args.vault, args.quartz, args.dry_run)
+
+    if args.dry_run:
+        return
+    
+    answer = input("\nCommit and push? [y/N] ").strip().lower()
+    if answer != "y":
+        print("Aborted. Files are copied but not committed.")
+        return
+ 
+    quartz_root = args.quartz.parent
+    subprocess.run(["git", "add", "content/"], cwd=quartz_root, check=True)
+    result = subprocess.run(["git", "diff", "--cached", "--quiet"], cwd=quartz_root)
+    if result.returncode == 0:
+        print("No changes to commit.")
+        return
+    subprocess.run(["git", "commit", "-m", "sync public notes"], cwd=quartz_root, check=True)
+    subprocess.run(["git", "push"], cwd=quartz_root, check=True)
+    print("Pushed.")
 
 
 if __name__ == "__main__":
